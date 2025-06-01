@@ -3,7 +3,7 @@ import "./maplibre-gl-compare.css";
 
 var beforeMap = new maplibregl.Map({
   container: "before",
-  style: "./styles/osm.json",
+  style: "./styles/rekichizu.json",
   center: [139.767, 35.681],
   zoom: 14,
   hash: true,
@@ -11,7 +11,7 @@ var beforeMap = new maplibregl.Map({
 
 var afterMap = new maplibregl.Map({
   container: "after",
-  style: "./styles/std.json",
+  style: "./styles/gsi_std.json",
   center: [139.767, 35.681],
   zoom: 14,
 });

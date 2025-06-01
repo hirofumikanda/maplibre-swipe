@@ -1,0 +1,2495 @@
+{
+  "version": 8,
+  "metadata": {"maputnik:renderer": "mlgljs"},
+  "sources": {
+    "rekichizu": {
+      "type": "vector",
+      "tiles": [
+        "https://mierune.github.io/rekichizu-data/tiles/v1/{z}/{x}/{y}.pbf"
+      ],
+      "maxzoom": 14,
+      "attribution": "<a href=\"https://rekichizu.jp\">れきちず</a>"
+    },
+    "terrain": {
+      "type": "raster-dem",
+      "tiles": [
+        "https://gbank.gsj.jp/seamless/elev/terrainRGB/land/{z}/{y}/{x}.png"
+      ],
+      "minzoom": 0,
+      "maxzoom": 14,
+      "tileSize": 256,
+      "encoding": "mapbox",
+      "attribution": "<a href=\"https://maps.gsi.go.jp/development/ichiran.html\">地理院タイル</a> | <a href=\"https://gbank.gsj.jp/seamless/elev/\">産総研シームレス標高タイル</a>"
+    }
+  },
+  "sprite": "https://mierune.github.io/rekichizu-data/sprite",
+  "glyphs": "https://mierune.github.io/fonts/{fontstack}/{range}.pbf",
+  "layers": [
+    {
+      "id": "background",
+      "type": "background",
+      "layout": {"visibility": "visible"},
+      "paint": {"background-color": "rgba(163, 206, 240, 1)"}
+    },
+    {
+      "id": "landcover-main",
+      "type": "fill",
+      "source": "rekichizu",
+      "source-layer": "landcover",
+      "filter": ["all", ["==", "type", "main"]],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "fill-color": {
+          "stops": [[6, "#F3F3F0"], [10, "rgba(229, 241, 229, 1)"]]
+        },
+        "fill-opacity": 1
+      }
+    },
+    {
+      "id": "landcover-water",
+      "type": "fill",
+      "source": "rekichizu",
+      "source-layer": "landcover",
+      "minzoom": 0,
+      "filter": ["all", ["==", "type", "water"]],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(163, 206, 240, 1)"}
+    },
+    {
+      "id": "landuse-yashiki",
+      "type": "fill",
+      "source": "rekichizu",
+      "source-layer": "landuse",
+      "minzoom": 0,
+      "filter": ["all", ["==", "type", "yashiki"]],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "#f3f3f0"}
+    },
+    {
+      "id": "landuse-temple",
+      "type": "fill",
+      "source": "rekichizu",
+      "source-layer": "landuse",
+      "minzoom": 0,
+      "filter": ["all", ["==", "type", "temple"]],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "#f0e0d8"}
+    },
+    {
+      "id": "landuse-green",
+      "type": "fill",
+      "source": "rekichizu",
+      "source-layer": "landuse",
+      "filter": ["any", ["==", "type", "green"]],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(198, 236, 198, 1)"}
+    },
+    {
+      "id": "landuse-machiya",
+      "type": "fill",
+      "source": "rekichizu",
+      "source-layer": "landuse",
+      "minzoom": 0,
+      "filter": ["all", ["==", "type", "machiya"]],
+      "layout": {"visibility": "visible"},
+      "paint": {"fill-color": "rgba(245, 237, 196, 1)"}
+    },
+    {
+      "id": "hillshade",
+      "type": "hillshade",
+      "source": "terrain",
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "hillshade-shadow-color": "rgba(162, 229, 194, 1)",
+        "hillshade-exaggeration": [
+          "interpolate",
+          ["linear"],
+          ["zoom"],
+          8,
+          0.1,
+          14,
+          0.4,
+          16,
+          0.2
+        ],
+        "hillshade-highlight-color": "rgba(238, 255, 231, 1)"
+      }
+    },
+    {
+      "id": "river-400",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "river",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", 400]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(163, 206, 240, 1)",
+        "line-width": {"base": 2.2, "stops": [[1, 0.8], [20, 8000]]},
+        "line-translate-anchor": "map"
+      }
+    },
+    {
+      "id": "river-200",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "river",
+      "minzoom": 7,
+      "filter": ["all", ["==", "type", 200]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(163, 206, 240, 1)",
+        "line-width": {"base": 2.2, "stops": [[1, 0.4], [20, 4000]]},
+        "line-translate-anchor": "map"
+      }
+    },
+    {
+      "id": "river-100",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "river",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", 100]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(163, 206, 240, 1)",
+        "line-width": {"base": 2.2, "stops": [[1, 0.2], [20, 2000]]},
+        "line-translate-anchor": "map"
+      }
+    },
+    {
+      "id": "river-70",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "river",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", 70]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(163, 206, 240, 1)",
+        "line-width": {"base": 2.2, "stops": [[1, 0.1], [20, 1400]]},
+        "line-translate-anchor": "map"
+      }
+    },
+    {
+      "id": "river-50",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "river",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", 50]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(163, 206, 240, 1)",
+        "line-width": {"base": 2.2, "stops": [[1, 0.1], [20, 1000]]},
+        "line-translate-anchor": "map"
+      }
+    },
+    {
+      "id": "river-35",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "river",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", 35]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(163, 206, 240, 1)",
+        "line-width": {"base": 2.2, "stops": [[1, 0.1], [20, 700]]},
+        "line-translate-anchor": "map"
+      }
+    },
+    {
+      "id": "river-20",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "river",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", 20]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(163, 206, 240, 1)",
+        "line-width": {"base": 2.2, "stops": [[1, 0.1], [20, 300]]},
+        "line-translate-anchor": "map"
+      }
+    },
+    {
+      "id": "river-10",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "river",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", 10]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(163, 206, 240, 1)",
+        "line-width": {"base": 2.2, "stops": [[1, 0.1], [20, 100]]},
+        "line-translate-anchor": "map"
+      }
+    },
+    {
+      "id": "river-5",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "river",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", 5]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(163, 206, 240, 1)",
+        "line-width": {"base": 2.2, "stops": [[1, 0.1], [20, 50]]},
+        "line-translate-anchor": "map"
+      }
+    },
+    {
+      "id": "river-0",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "river0",
+      "minzoom": 10,
+      "filter": ["all"],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(0, 0, 0, 1)",
+        "line-width": 0,
+        "line-translate-anchor": "map",
+        "line-opacity": 1
+      }
+    },
+    {
+      "id": "ferry",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "ferry",
+      "minzoom": 4,
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(85, 162, 221, 1)",
+        "line-width": {"stops": [[6, 1], [16, 2]]},
+        "line-dasharray": [2, 2]
+      }
+    },
+    {
+      "id": "road-village",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "road",
+      "minzoom": 14,
+      "filter": ["all", ["==", "type", "village"]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(157, 168, 174, 1)",
+        "line-width": {"base": 2.2, "stops": [[11, 2], [24, 2000]]}
+      }
+    },
+    {
+      "id": "road-town",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "road",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "town"]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(157, 168, 174, 1)",
+        "line-width": {"base": 2.2, "stops": [[11, 2], [13, 4], [24, 2500]]}
+      }
+    },
+    {
+      "id": "road-waki",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "road",
+      "minzoom": 8,
+      "filter": ["all", ["==", "type", "waki"]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(157, 168, 174, 1)",
+        "line-width": {"base": 2.2, "stops": [[8, 2.5], [12, 5], [24, 3000]]}
+      }
+    },
+    {
+      "id": "road-main",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "road",
+      "minzoom": 7,
+      "filter": ["all", ["==", "type", "main"]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(77, 153, 120, 1)",
+        "line-width": {"base": 2.2, "stops": [[8, 2.5], [12, 5], [24, 3000]]}
+      }
+    },
+    {
+      "id": "road-gokaido",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "road",
+      "minzoom": 7,
+      "filter": ["all", ["==", "type", "gokaido"]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(77, 153, 120, 1)",
+        "line-width": {"base": 2.2, "stops": [[6, 3], [12, 7], [24, 4000]]}
+      }
+    },
+    {
+      "id": "road-village-ue",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "road",
+      "minzoom": 12,
+      "filter": ["all", ["==", "type", "village"]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(199, 206, 209, 1)",
+        "line-width": {"base": 2.2, "stops": [[11, 1], [24, 1900]]}
+      }
+    },
+    {
+      "id": "road-town-ue",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "road",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "town"]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(199, 206, 209, 1)",
+        "line-width": {"base": 2.2, "stops": [[11, 1.5], [13, 3], [24, 2400]]}
+      }
+    },
+    {
+      "id": "road-waki-ue",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "road",
+      "minzoom": 7,
+      "filter": ["all", ["==", "type", "waki"]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(199, 206, 209, 1)",
+        "line-width": {"base": 2.2, "stops": [[6, 1], [12, 3], [24, 2900]]}
+      }
+    },
+    {
+      "id": "road-main-ue",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "road",
+      "minzoom": 5,
+      "filter": ["all", ["==", "type", "main"]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(130, 201, 177, 1)",
+        "line-width": {"base": 2.2, "stops": [[6, 1.5], [12, 3], [24, 2900]]}
+      }
+    },
+    {
+      "id": "road-gokaido-ue",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "road",
+      "minzoom": 4,
+      "filter": ["all", ["==", "type", "gokaido"]],
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(130, 201, 177, 1)",
+        "line-width": {"base": 2.2, "stops": [[6, 2], [12, 5], [24, 3900]]}
+      }
+    },
+    {
+      "id": "border",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "border",
+      "minzoom": 3,
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(221, 123, 123, 1)",
+        "line-width": {"stops": [[4, 1], [6, 1.5], [10, 3], [12, 5], [16, 10]]},
+        "line-opacity": 0.3
+      }
+    },
+    {
+      "id": "border-line",
+      "type": "line",
+      "source": "rekichizu",
+      "source-layer": "border",
+      "minzoom": 4,
+      "layout": {
+        "line-join": "round",
+        "line-cap": "butt",
+        "visibility": "visible"
+      },
+      "paint": {
+        "line-color": "rgba(221, 123, 123, 1)",
+        "line-width": {"stops": [[6, 1], [12, 2], [16, 3]]},
+        "line-dasharray": [3, 2],
+        "line-opacity": 0.8
+      }
+    },
+    {
+      "id": "text-ferry",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "ferry",
+      "layout": {
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": "{name}",
+        "visibility": "visible",
+        "symbol-placement": "line",
+        "text-size": 11,
+        "symbol-spacing": 250,
+        "icon-keep-upright": false,
+        "text-anchor": "bottom"
+      },
+      "paint": {"text-color": "rgba(58, 115, 172, 1)"}
+    },
+    {
+      "id": "text-road",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "road",
+      "layout": {
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": "{name}",
+        "visibility": "visible",
+        "symbol-placement": "line",
+        "text-size": 11,
+        "symbol-spacing": 350
+      },
+      "paint": {
+        "text-color": "#323232",
+        "text-halo-color": "#ffffff",
+        "text-halo-width": 1,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "text-river",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "river",
+      "layout": {
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": "{name}",
+        "visibility": "visible",
+        "symbol-placement": "line-center",
+        "text-size": 11,
+        "symbol-spacing": 350
+      },
+      "paint": {"text-color": "#3A73AC"}
+    },
+    {
+      "id": "poi-water",
+      "type": "circle",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 12,
+      "maxzoom": 24,
+      "filter": ["any", ["==", "type", "water"], ["==", "type", "watashi"]],
+      "paint": {
+        "circle-opacity": 1,
+        "circle-radius": 2.5,
+        "circle-color": "#527CA6",
+        "circle-stroke-color": "#3D6B99",
+        "circle-stroke-opacity": 1,
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "poi-restaurant",
+      "type": "circle",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 12,
+      "filter": ["any", ["==", "type", "restaurant"]],
+      "paint": {
+        "circle-opacity": 1,
+        "circle-radius": 2.5,
+        "circle-color": "#E68423",
+        "circle-stroke-color": "#CC7014",
+        "circle-stroke-opacity": 1,
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "poi-market",
+      "type": "circle",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 12,
+      "filter": ["any", ["==", "type", "market"]],
+      "paint": {
+        "circle-opacity": 1,
+        "circle-radius": 2.5,
+        "circle-color": "#E69900",
+        "circle-stroke-color": "#CC8100",
+        "circle-stroke-opacity": 1,
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "poi-brown",
+      "type": "circle",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 12,
+      "filter": ["any", ["==", "type", "temple"], ["==", "type", "shrine"]],
+      "paint": {
+        "circle-opacity": 1,
+        "circle-radius": 2.5,
+        "circle-color": "#B35E36",
+        "circle-stroke-color": "#994B26",
+        "circle-stroke-opacity": 1,
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "poi-purple",
+      "type": "circle",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 12,
+      "filter": ["any", ["==", "type", "landmark"], ["==", "type", "theater"]],
+      "paint": {
+        "circle-opacity": 1,
+        "circle-radius": 2.5,
+        "circle-color": "#735CE6",
+        "circle-stroke-color": "#5D48CC",
+        "circle-stroke-opacity": 1,
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "poi-gray",
+      "type": "circle",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 12,
+      "filter": [
+        "any",
+        ["==", "type", "bridge"],
+        ["==", "type", "barrier"],
+        ["==", "type", "office"],
+        ["==", "type", "gate"],
+        ["==", "type", "other"],
+        ["==", "type", "castle"]
+      ],
+      "paint": {
+        "circle-opacity": 1,
+        "circle-radius": 2.5,
+        "circle-color": "#8C887E",
+        "circle-stroke-color": "#736E67",
+        "circle-stroke-opacity": 1,
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "poi-shukuba",
+      "type": "circle",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "maxzoom": 14,
+      "filter": [
+        "any",
+        ["==", "type", "shukuba"],
+        ["==", "type", "tsugitateba"]
+      ],
+      "paint": {
+        "circle-opacity": 1,
+        "circle-radius": 2.5,
+        "circle-color": "#527CA6",
+        "circle-stroke-color": "#3D6B99",
+        "circle-stroke-opacity": 1,
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "poi3-restaurant",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "restaurant"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_restaurant",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(167, 92, 17, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi3-market",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "market"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_shop",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(153, 89, 0, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi3-theater",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "theater"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_theater",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#008099",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi3-port",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "port"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_watashi",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#005ab3",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi3-water",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "water"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.5,
+        "text-size": 13,
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "text-offset": [0.8, -0.08],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-justify": "left",
+        "text-anchor": "left",
+        "icon-image": "old_watashi",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(44, 76, 109, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi3-temple",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "temple"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_temple",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(153, 75, 38, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi3-shrine",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "shrine"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_shrine",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(153, 75, 38, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi3-other",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "other"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_other",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#525f66",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi3-office",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "office"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_other",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#525f66",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi3-gate",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "gate"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_gate",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi3-castle",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "castle"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_castle",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#525f66",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi3-bridge",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "bridge"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_bridge",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi3-landmark",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "landmark"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_landmark",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(71, 50, 179, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi3-barrier",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "barrier"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_barrier",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#525f66",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi3-pass",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "pass"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-image": ["get", "type"],
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#008040",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi3-mountain",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 11,
+      "filter": ["all", ["==", "type", "mountain"], ["!in", "rank", 1, 2]],
+      "layout": {
+        "icon-image": ["get", "type"],
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#008040",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi2-restaurant",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "restaurant"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_restaurant",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(167, 92, 17, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi2-market",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "market"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_shop",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(153, 97, 0, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi2-theater",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "theater"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_theatre",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(71, 50, 179, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi2-landmark",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "landmark"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_landmark",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(71, 50, 179, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi2-port",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "port"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_watashi",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#005ab3",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi2-water",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "water"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.5,
+        "text-size": 13,
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "text-offset": [0.8, -0.08],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-justify": "left",
+        "text-anchor": "left",
+        "icon-image": "old_watashi",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(44, 76, 109, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi2-temple",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "temple"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_temple",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(153, 75, 38, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi2-shrine",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "shrine"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_shrine",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(153, 75, 38, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi2-other",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "other"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_other",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi2-office",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "office"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_other",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi2-gate",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "gate"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_gate",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi2-castle",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "castle"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_castle",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi2-bridge",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "bridge"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_bridge",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi2-barrier",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "barrier"], ["==", "rank", 2]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_barrier",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi2-pass",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "pass"], ["==", "rank", 2]],
+      "layout": {
+        "icon-image": ["get", "type"],
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#008040",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi2-mountain",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "filter": ["all", ["==", "type", "mountain"], ["==", "rank", 2]],
+      "layout": {
+        "icon-image": ["get", "type"],
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#008040",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi1-restaurant",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "restaurant"], ["==", "rank", 0]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_restaurant",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(167, 92, 17, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi1-market",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "market"], ["==", "rank", 0]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_shop",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#b37d12",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi1-theater",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "theater"], ["==", "rank", 1]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_theater",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#008099",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi1-landmark",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "landmark"], ["==", "rank", 1]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_landmark",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(71, 50, 179, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi1-port",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "port"], ["==", "rank", 1]],
+      "layout": {
+        "icon-size": 0.5,
+        "text-size": 13,
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "text-offset": [0.8, -0.08],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-justify": "left",
+        "text-anchor": "left",
+        "icon-image": "old_watashi",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(44, 76, 109, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi1-water",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "water"], ["==", "rank", 1]],
+      "layout": {
+        "icon-size": 0.5,
+        "text-size": 13,
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "text-offset": [0.8, -0.08],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-justify": "left",
+        "text-anchor": "left",
+        "icon-image": "old_watashi",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(44, 76, 109, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi1-temple",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "temple"], ["==", "rank", 1]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_temple",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(153, 75, 38, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi1-shrine",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "shrine"], ["==", "rank", 1]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_shrine",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(153, 75, 38, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi1-other",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "other"], ["==", "rank", 1]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_other",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi1-office",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "office"], ["==", "rank", 1]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_other",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi1-gate",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "gate"], ["==", "rank", 1]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_gate",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#525f66",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi1-castle",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "castle"], ["==", "rank", 1]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_castle",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi1-bridge",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "bridge"], ["==", "rank", 1]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_bridge",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi1-barrier",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "barrier"], ["==", "rank", 1]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_barrier",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi1-pass",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "pass"], ["==", "rank", 1]],
+      "layout": {
+        "icon-image": ["get", "type"],
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#008040",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi1-mountain",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "filter": ["all", ["==", "type", "mountain"], ["==", "rank", 1]],
+      "layout": {
+        "icon-image": ["get", "type"],
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#008040",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi-district",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 9,
+      "maxzoom": 14,
+      "filter": ["all", ["==", "type", "district"]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "visibility": "visible",
+        "text-offset": [0, 0],
+        "text-allow-overlap": false,
+        "text-pitch-alignment": "auto",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#777777",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi-circle-castle",
+      "type": "circle",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "maxzoom": 12,
+      "filter": ["any", ["==", "type", "castown"]],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "circle-color": "#555555",
+        "circle-radius": 2.5,
+        "circle-stroke-color": "#ffffff",
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "poi-circle-city",
+      "type": "circle",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 6,
+      "maxzoom": 12,
+      "filter": ["any", ["==", "type", "city"]],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "circle-color": "#555555",
+        "circle-radius": 3,
+        "circle-stroke-color": "rgba(255, 255, 255, 1)",
+        "circle-stroke-width": 1
+      }
+    },
+    {
+      "id": "poi-capital-base",
+      "type": "circle",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "maxzoom": 12,
+      "filter": ["all", ["==", "type", "capital"]],
+      "layout": {"visibility": "visible"},
+      "paint": {
+        "circle-color": "#ffffff",
+        "circle-stroke-width": 2,
+        "circle-radius": 3.5,
+        "circle-stroke-color": "#444444"
+      }
+    },
+    {
+      "id": "poi-shukuba-3",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 14,
+      "filter": ["any", ["==", "type", "shukuba_zoom"]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 15,
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "text-offset": [0.9, -0.08],
+        "visibility": "visible",
+        "text-justify": "left",
+        "text-anchor": "left",
+        "icon-image": "new_shukuba",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(44, 76, 109, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "icon-halo-blur": 1,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi-tsugitateba",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "maxzoom": 14,
+      "filter": ["any", ["==", "type", "tsugitateba"]],
+      "layout": {
+        "icon-size": 0.5,
+        "text-size": 13,
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "text-offset": [0.8, -0.08],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-justify": "left",
+        "text-anchor": "left",
+        "icon-image": "new_shukuba",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(44, 76, 109, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi-shukuba2",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 10,
+      "maxzoom": 14,
+      "filter": ["any", ["==", "type", "shukuba"]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "text-offset": [0.9, -0.08],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-justify": "left",
+        "text-anchor": "left",
+        "icon-image": "new_shukuba",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(44, 76, 109, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi-shukuba1",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "maxzoom": 10,
+      "filter": ["any", ["in", "type", "shukuba", "tsugitateba"]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 13,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-allow-overlap": true,
+        "text-offset": [0, 0],
+        "text-padding": {"stops": [[8, 10], [9, 5]]}
+      },
+      "paint": {
+        "text-color": "#323232",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.2,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi0-port",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "filter": ["all", ["==", "type", "port"], ["==", "rank", 0]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_watashi",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#005ab3",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi0-water",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "filter": ["all", ["==", "type", "water"], ["==", "rank", 0]],
+      "layout": {
+        "icon-size": 0.5,
+        "text-size": 13,
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "text-offset": [0.8, -0.08],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-justify": "left",
+        "text-anchor": "left",
+        "icon-image": "old_watashi",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(44, 76, 109, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi0-temple",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "filter": ["all", ["==", "type", "temple"], ["==", "rank", 0]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_temple",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(153, 75, 38, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi0-shrine",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "filter": ["all", ["==", "type", "shrine"], ["==", "rank", 0]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "new_shrine",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(153, 75, 38, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi0-other",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "filter": ["all", ["==", "type", "other"], ["==", "rank", 0]],
+      "layout": {
+        "icon-image": ["get", "type"],
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#525f66",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi0-office",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "filter": ["all", ["==", "type", "office"], ["==", "rank", 0]],
+      "layout": {
+        "icon-image": ["get", "type"],
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#525f66",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi0-gate",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "filter": ["all", ["==", "type", "gate"], ["==", "rank", 0]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_gate",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#525f66",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi0-castle",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "filter": ["all", ["==", "type", "castle"], ["==", "rank", 0]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_castle",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi0-bridge",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "filter": ["all", ["==", "type", "bridge"], ["==", "rank", 0]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_bridge",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi0-barrier",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "filter": ["all", ["==", "type", "barrier"], ["==", "rank", 0]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-image": "old_barrier",
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "rgba(94, 90, 84, 1)",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 0.5
+      }
+    },
+    {
+      "id": "poi0-pass",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 7,
+      "filter": ["all", ["==", "type", "pass"], ["==", "rank", 0]],
+      "layout": {
+        "icon-image": ["get", "type"],
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#008040",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi0-mountain",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 7,
+      "filter": ["all", ["==", "type", "mountain"], ["==", "rank", 0]],
+      "layout": {
+        "icon-image": ["get", "type"],
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Rg"],
+        "text-field": ["get", "name"],
+        "text-offset": [0, 1.3],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "text-padding": 5
+      },
+      "paint": {
+        "text-color": "#008040",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.5,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi-castle",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 8,
+      "maxzoom": 15,
+      "filter": ["any", ["==", "type", "castown"]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 14,
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-allow-overlap": true,
+        "text-offset": {"stops": [[11, [0, 0.7]], [12, [0, 0]]]}
+      },
+      "paint": {
+        "text-color": "#323232",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.2,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi-country",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 5,
+      "maxzoom": 13,
+      "filter": ["any", ["==", "type", "province"]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": {"stops": [[5, 11], [6, 12], [9, 16]]},
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "visibility": "visible",
+        "text-offset": [0, 0],
+        "text-allow-overlap": false,
+        "text-pitch-alignment": "auto"
+      },
+      "paint": {
+        "text-color": "#777777",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.2,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi-city",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 6,
+      "maxzoom": 14,
+      "filter": ["any", ["==", "type", "city"]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 16,
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "visibility": "visible",
+        "symbol-sort-key": ["get", "rank"],
+        "icon-allow-overlap": true,
+        "text-offset": {"stops": [[11, [0, 0.7]], [12, [0, 0]]]}
+      },
+      "paint": {
+        "text-color": "#323232",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.2,
+        "text-halo-blur": 1
+      }
+    },
+    {
+      "id": "poi-capital",
+      "type": "symbol",
+      "source": "rekichizu",
+      "source-layer": "poi",
+      "minzoom": 0,
+      "maxzoom": 15,
+      "filter": ["all", ["==", "type", "capital"]],
+      "layout": {
+        "icon-size": 0.6,
+        "text-size": 18,
+        "text-font": ["LINESeedJP_OTF_Bd"],
+        "text-field": ["get", "name"],
+        "visibility": "visible",
+        "text-allow-overlap": false,
+        "text-pitch-alignment": "auto",
+        "symbol-z-order": "auto",
+        "text-offset": {"stops": [[11, [0, 0.75]], [12, [0, 0]]]}
+      },
+      "paint": {
+        "text-color": "#323232",
+        "text-halo-color": "#fff",
+        "text-halo-width": 1.2,
+        "text-halo-blur": 1
+      }
+    }
+  ],
+  "localIdeographFontFamily": null,
+  "id": "style"
+}
