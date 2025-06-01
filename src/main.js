@@ -20,3 +20,7 @@ var afterMap = new maplibregl.Map({
 var container = "#comparison-container";
 
 var map = new maplibregl.Compare(beforeMap, afterMap, container, {});
+
+afterMap.on("load", async () => {
+  afterMap.addControl(new maplibregl.NavigationControl());
+});
